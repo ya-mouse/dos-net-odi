@@ -1,0 +1,100 @@
+.TH HTGET 1 "31 December 1997" "DOS network application"
+.SH NAME
+htget \- get a document via HTTP
+.SH SYNOPSIS
+.B htget
+[\fB\-h\fR]
+[\fB\-m\fR]
+[\fB\-o\fIfile\fR]
+[\fB\-p\fIid:passphrase\fR]
+[\fB\-v\fR]
+.I URL
+.SH DESCRIPTION
+.B htget
+is a small program to fetch a document with HTTP.
+URL is the location of the document served via HTTP.
+The initial
+.B http://
+can be omitted.
+The document, if there is no error, is sent to standard output.
+Use
+.B \-o
+or > redirection if you wish to save to a file.
+Diagnostics go to standard error.
+.SH INSTALLATION
+.B htget
+requires: a network interface, typically
+a network interface card and a FTP Software specification
+Packet Driver for it, and a valid WATTCP configuration file, WATTCP.CFG.
+.LP
+To install, edit the file WATTCP.CFG, filling in the entries. Then edit
+your autoexec.bat file to load the packet driver.
+Something like this:
+.sp
+.nf
+c:\\htget\\ni5210 0x60 2 0x300 0xcc00
+rem If you wish to put your wattcp.cfg in a particular directory
+set wattcp_cfg=a:\\htget\\wattcp.cfg
+.fi
+.SH OPTIONS
+.TP
+.B \-h
+get header only. Note that not all servers support the HEAD
+method and you may get a 400 reply (invalid request).
+.TP
+.B \-m
+get only if modified more recently than the date of
+the file specified with
+.B \-o
+.TP
+.BI \-o file
+get into file
+.TP
+.BI \-p id:passphrase
+supply a passphrase for protected documents. Quote
+the argument if it contains spaces.
+.TP
+.B \-v
+print some progress messages
+.SH "CONDITIONAL GET"
+The
+.B \-m
+option for If-Modified-Since depends on the timezone being set correctly.
+You should, in autoexec.bat, SET TZ=EST5 for US East Coast
+or AST-10 for Australian East Coast for example.
+During DST, add another three letters, e.g.  AST-10ADT.
+The letters don't matter, it's the offset that counts.
+.SH "ENVIRONMENT VARIABLES"
+The environment variable
+.BR HTTP_PROXY ,
+if set to a string of the form
+.IR host:port ,
+will direct
+.B htget
+to connect to that proxy to fetch the URL specified
+instead of connecting directly to the server.
+The full URL (with the http:// prefix), must be specified.
+.SH "FILE FORMAT"
+Remember that the document is fetched exactly as-is.
+So a HTML document from a Unix Web server
+will not have carriage returns before line feeds.
+Also, embedded images are not fetched; you must fetch them separately.
+HTGET is a utility to fetch documents by HTTP, not a browser.
+Try
+.B doslynx
+if you want the latter.
+.SH "SEE ALSO"
+RFC 1945 Hypertext Transfer Protocol HTTP/1.0
+.SH FILES
+WATTCP.CFG
+.SH DIAGNOSTICS
+Hopefully self explanatory.
+.SH COPYRIGHT
+.B htget
+is under the Artistic License, which allows you to freely distribute
+the program provided the sources accompany, or are made available on
+request. See Artistic for details.
+.SH AUTHOR
+Ken Yap (ken@syd.dit.csiro.au)
+.SH DATE
+December 1997

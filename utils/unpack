@@ -1,0 +1,44 @@
+#!/bin/sh
+
+WINE=${WINE:-wine}
+WINEPREFIX=${WINEPREFIX:-$HOME/.wine}
+DRIVE_C="$WINEPREFIX/dosdevices/c:"
+
+
+case "$1" in
+    msvc)
+        tar xfj "$2" -C $DRIVE_C || exit 1
+        ;;
+    lwp)
+        rm -rf $DRIVE_C/lwp
+        unzip -qqL "$2" workshop/doswin/toolkit/\* -d $DRIVE_C/lwp || exit 1
+        mv $DRIVE_C/lwp/workshop/doswin/toolkit/include \
+           $DRIVE_C/lwp/workshop/doswin/toolkit/lib \
+           $DRIVE_C/lwp/
+        rm -rf $DRIVE_C/lwp/workshop
+        exit
+        ;;
+    *)
+        exit 1
+        ;;
+esac
+
+WIN_PATH="$(WINEDEBUG= $WINE cmd.exe /c echo "%PATH%" | tr -d '\r' | sed 's,c:\\msvc-1.52c\\bin;,,; s,\\,\\\\,g')"
+LIB_PATH="$(WINEDEBUG= $WINE cmd.exe /c echo "%LIB%" | tr -d '\r' | sed 's,c:\\msvc-1.52c\\lib;,,; s,\\,\\\\,g' | grep -v %)"
+INC_PATH="$(WINEDEBUG= $WINE cmd.exe /c echo "%INCLUDE%" | tr -d '\r' | sed 's,c:\\msvc-1.52c\\include;,,; s,\\,\\\\,g' | grep -v %)"
+
+cat <<_EOF_ | todos > __tmp.reg
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Environment]
+"PATH"=str(2):"c:\\\\msvc-1.52c\\\\bin;$WIN_PATH"
+"LIB"=str(2):"c:\\\\msvc-1.52c\\\\lib;$LIB_PATH"
+"INCLUDE"=str(2):"c:\\\\msvc-1.52c\\\\include;$INC_PATH"
+_EOF_
+
+regedit __tmp.reg
+rc=$?
+rm -f __tmp.reg
+
+exit $rc
+

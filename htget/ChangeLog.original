@@ -1,0 +1,51 @@
+0.95    First release
+
+0.96	Add reference to RFC1945. Correct some resource URLs.
+
+	Note that HTTP/0.9 servers not handled.
+
+	Bound sock_getline loop by buffer length.
+
+	Print warning if actual length != content length.
+
+	Return non-zero status if failed to fetch document.
+
+	Identify user agent as HTGET-DOS to avoid confusion with
+	other HTGET.
+
+0.97	Add -v flag to print some progress messages.
+
+	Add -p ident:password to allow authorisation to be sent.
+
+0.98	Add -o filename option to save to a file.
+
+	Add -m to send If-Modified-Since with date of file in -o.
+
+	Use getopt instead of doing argument parsing oneself.
+
+0.99	Provide a manual page.
+
+	Bug fix: if no Content-Length line, read until EOF
+
+	Disable -m if -h specified. It will be ignored by the server
+	anyway.
+
+	Warn if continuation line seen. Fortunately the only header
+	line we are interested in, Content-Length, is very unlikely
+	to span lines.
+
+1.00	If 301 or 302 response, print the Location line.
+
+	Accept HTTP/1.1 resposes too.
+
+	Link with latest version of Wattcp library to get fixes.
+	Probably have no effect on this program but anyway...
+
+	Final version.
+
+1.01	Merged contributed code by Yury Semenov <yury@petre.odessa.ua>
+	to go through a proxy.
+	Set environment variable HTTP_PROXY to host:port of proxy.
+
+1.02	Jeff Patterson suggested a running count of bytes fetched for
+	long transfers.

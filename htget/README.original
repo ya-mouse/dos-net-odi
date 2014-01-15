@@ -1,0 +1,91 @@
+HTGET Version 1.02, get a document via HTTP
+
+Installation:
+
+You need to run a packet driver and to configure wattcp.cfg first.
+Remember to define a nameserver if you want to resolve hostnames.
+Then to use the program, just run as:
+
+	htget URL
+
+where URL is a document on the Web that you want to fetch.  The initial
+http:// can be omitted.  The returned document, if there is no error,
+is sent to standard output.  Use > redirection or -o to save to a
+file if this is desired. If an error occurs, the error code is printed
+to stderr.
+
+If the environment variable HTTP_PROXY is set to the host:port of
+a proxy server, then htget will use that. In this case the http://
+prefix of the URL cannot be omitted.
+
+At the moment HTGET handles responses from only HTTP/1.0 and HTTP/1.1
+servers. Are there any HTTP/0.9 servers still in use?
+
+List of files:
+
+Artistic	Artistic License conditions
+LOG		Change log
+Makefile	For Borland C make
+README		This file
+getopt.c	Command arguments parsing routine
+htget.exe	Executable
+htget.c		Source
+htget.man	Manual page (nroff format)
+htget.prn	Printable version of above
+httpddos.tip	Some suggestions for DOS Web servers
+tcp.h		Source, copy of one in WATTCP source distribution
+wattcp.cfg	Configuration file, edit before using HTGET
+wattcpsm.lib	Object library used when linking HTGET
+
+Resources:
+
+Here are some FTP sites for auxiliary and related software.  The sites
+named here are the normal ones and it's best to ask archie for the
+nearest archive to you.
+
+Packet drivers
+	ftp://ftp.simtel.net/pub/simtelnet/msdos/pktdrvr/
+	Current version of the packet drivers is 11.
+
+WATTCP library sources
+	ftp://ftp-ns.rutgers.edu/pub/pc/wattcp/
+
+PDCLKSET
+	ftp://ftp.simtel.net/pub/simtelnet/msdos/pktdrvr/pdtstNNN.zip
+	A small program to set the PC clock from a server running timed(udp).
+
+DOSLYNX
+	ftp://ftp2.cc.ukans.edu/pub/WWW/DosLynx/
+
+comp.protocols.tcp-ip.ibmpc FAQ
+	ftp://ftp.netcom.com/pub/mailcom/IBMTCP/ibmtcp.zip
+	Answers a lot of questions about TCP-IP on PCs.
+
+RFC1945
+	Hypertext Transfer Protocol -- HTTP/1.0, at lots of places
+
+Acknowledgements:
+
+HTGET uses the excellent WATTCP package by Erick Engelke of the U of
+Waterloo. Russ Nelson of Crynwr Software has put a lot of work into
+packet drivers for many NICs.
+
+HTGET is free software. The software is provided as-is and there is
+NO SUPPORT.
+
+If you find HTGET useful, send me a nice note by email telling me how
+you use it. If you really like it, send me a postcard of your country.
+
+Here are my contact addresses. Email is most preferred.
+
+	ken@syd.dit.csiro.au
+
+	Ken Yap
+	CSIRO Division of Information Technology
+	Locked Bag 17
+	North Ryde 2113
+	Australia
+	+61 2 3253100
+
+Ken Yap
+December 1997

@@ -1,0 +1,20 @@
+CC=cl
+OBJ=getopt.obj htget.obj
+LWPDIR=c:\lwp
+LDFLAGS=/AS /F 1400
+CFLAGS=-I$(LWPDIR)\include /nologo
+LIBS=/link slibsock
+LIB=$(LIB);$(LWPDIR)\lib
+
+all: htget.exe
+
+.c.obj:
+	$(CC) $(CFLAGS) -c $<
+
+htget.exe: $(OBJ)
+	$(CC) $(LDFLAGS) /Fehtget.exe $** $(LIBS)
+
+clean:
+	-@del *.obj
+	-@del htget.exe
+

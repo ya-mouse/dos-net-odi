@@ -1,0 +1,21 @@
+CC=bcc
+OBJ=getopt.obj htget.obj
+LWPDIR=c:\lwp
+CFLAGS=-ms -I$(LWPDIR)\include
+LIB=$(LWPDIR)\lib\tslbsock.lib
+
+all: htget.exe
+
+getopt.obj: getopt.c
+	bcc $(CFLAGS) -c getopt.c
+
+htget.obj: htget.c
+	bcc $(CFLAGS) -c htget.c
+
+htget.exe: $(OBJ)
+	bcc -ms -e$@ $** $(LIB)
+
+clean:
+	@del *.obj
+	@del htget.exe
+

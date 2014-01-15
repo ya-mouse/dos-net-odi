@@ -1,0 +1,6 @@
+DEVICE=A:\HIMEM.SYS /testmem:off
+FILES=40
+BUFFERS=30
+DOS=high,umb
+SHELL=A:\COMMAND.COM /E:4096 /P
+
